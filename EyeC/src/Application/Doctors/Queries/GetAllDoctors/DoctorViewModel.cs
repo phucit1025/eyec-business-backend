@@ -18,8 +18,11 @@ public class DoctorViewModel : Profile
     public string Education { get; set; } = string.Empty;
     public string FeatureImagePath { get; set; } = string.Empty;
 
-    public DoctorViewModel()
+    public class Mapping: Profile
     {
-        CreateMap<Doctor,DoctorViewModel>();
+        public Mapping()
+        {
+            CreateMap<Doctor,DoctorViewModel>();
+        }
     }
 }

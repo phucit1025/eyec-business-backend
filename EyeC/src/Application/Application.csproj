@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Authentication\Queries\" />
-    <Folder Include="Offices\" />
+    <Folder Include="Offices\Commands\" />
     <Folder Include="Users\Command\" />
   </ItemGroup>
 

@@ -1,11 +1,11 @@
 ﻿using EyeC.Application.Common.Interfaces;
 
-namespace EyeC.Application.Doctors.Queries.GetOfficeDoctors;
+namespace EyeC.Application.Offices.Queries.GetOfficeDoctors;
 public record GetOfficeDoctorsQuery(int OfficeId) : IRequest<IEnumerable<GetOfficeDoctorsViewModel>>
 {
 }
 
-public class GetOfficeDoctorsQueryHandler: IRequestHandler<GetOfficeDoctorsQuery, IEnumerable<GetOfficeDoctorsViewModel>>
+public class GetOfficeDoctorsQueryHandler : IRequestHandler<GetOfficeDoctorsQuery, IEnumerable<GetOfficeDoctorsViewModel>>
 {
     private readonly IMapper _mapper;
     private readonly IApplicationDbContext _dbContext;

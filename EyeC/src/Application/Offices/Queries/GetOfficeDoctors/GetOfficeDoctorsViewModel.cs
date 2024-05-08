@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EyeC.Domain.Entities;
 using EyeC.Domain.Enums;
 
-namespace EyeC.Application.Doctors.Queries.GetOfficeDoctors;
+namespace EyeC.Application.Offices.Queries.GetOfficeDoctors;
 public class GetOfficeDoctorsViewModel : Profile
 {
     public int DoctorId { get; set; }
@@ -17,10 +17,13 @@ public class GetOfficeDoctorsViewModel : Profile
     public string PersonalExperience { get; set; } = string.Empty;
     public string Education { get; set; } = string.Empty;
     public string FeatureImagePath { get; set; } = string.Empty;
-    public int OfficeId { get; set;}
+    public int OfficeId { get; set; }
 
-    public GetOfficeDoctorsViewModel()
+    public class Mapping : Profile
     {
-        CreateMap<Doctor, GetOfficeDoctorsViewModel>();
+        public Mapping()
+        {
+            CreateMap<Doctor, GetOfficeDoctorsViewModel>();
+        }
     }
 }
