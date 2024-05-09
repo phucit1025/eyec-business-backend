@@ -18,7 +18,8 @@
 
   <ItemGroup>
     <Folder Include="Authentication\Queries\" />
-    <Folder Include="Offices\Commands\" />
+    <Folder Include="Offices\Commands\CreateOffice\" />
+    <Folder Include="Offices\Commands\UpdateOffice\" />
     <Folder Include="Users\Command\" />
   </ItemGroup>
 

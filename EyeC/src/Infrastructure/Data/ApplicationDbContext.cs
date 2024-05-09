@@ -4,6 +4,7 @@ using EyeC.Domain.Entities;
 using EyeC.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 
 namespace EyeC.Infrastructure.Data;
@@ -29,4 +30,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
+
+    public Task<IDbContextTransaction> BeginTransactionAsync() => Database.BeginTransactionAsync();
 }

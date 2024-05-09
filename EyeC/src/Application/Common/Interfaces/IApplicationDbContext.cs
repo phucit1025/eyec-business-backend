@@ -1,4 +1,5 @@
 ﻿using EyeC.Domain.Entities;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace EyeC.Application.Common.Interfaces;
 
@@ -12,4 +13,5 @@ public interface IApplicationDbContext
     DbSet<OfficeDetailItem> OfficeDetailItems { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    Task<IDbContextTransaction> BeginTransactionAsync();
 }
