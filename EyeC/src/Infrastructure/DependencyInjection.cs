@@ -5,6 +5,7 @@ using EyeC.Infrastructure.Authentication;
 using EyeC.Infrastructure.Data;
 using EyeC.Infrastructure.Data.Interceptors;
 using EyeC.Infrastructure.Identity;
+using EyeC.Infrastructure.IOServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -73,6 +74,7 @@ public static class DependencyInjection
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<IAuthenticationService>(x => ActivatorUtilities.CreateInstance<AuthenticationService>(x, jwtSecret, jwtIssuer));
+        services.AddScoped<IImageService, ImageService>();
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator, Roles.Member)));

@@ -12,11 +12,11 @@ namespace EyeC.Application.Users.Queries.GetUsers;
 
 [Authorize(Roles = Roles.Administrator)]
 [Authorize(Roles = Roles.Member)]
-public record GetUsersQuery : IRequest<IEnumerable<UserViewModel>>
+public record GetUsersQuery : IRequest<ResultModel>
 {
 }
 
-public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<UserViewModel>>
+public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, ResultModel>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IIdentityService _identityService;
@@ -29,10 +29,13 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<U
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<UserViewModel>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+    public async Task<ResultModel> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
+        var result = new ResultModel();
         var users = await _identityService.GetUsersAsync();
-        var results = _mapper.Map<List<IdentityUserModel>,List<UserViewModel>>(users);
-        return results;
+        var userModels = _mapper.Map<List<IdentityUserModel>,List<UserViewModel>>(users);
+        result.Success = true;
+        result.Data = userModels;
+        return result;
     }
 }

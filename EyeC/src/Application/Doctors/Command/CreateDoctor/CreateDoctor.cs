@@ -24,11 +24,13 @@ public class CreateDoctorCommandHandler : IRequestHandler<CreateDoctorCommand, R
 {
     private readonly IMapper _mapper;
     private readonly IApplicationDbContext _dbContext;
+    private readonly IImageService _imageService;
 
-    public CreateDoctorCommandHandler(IMapper mapper, IApplicationDbContext dbContext)
+    public CreateDoctorCommandHandler(IMapper mapper, IApplicationDbContext dbContext, IImageService imageService)
     {
         _mapper = mapper;
         _dbContext = dbContext;
+        _imageService = imageService;
     }
 
     public async Task<ResultModel> Handle(CreateDoctorCommand request, CancellationToken cancellationToken)
@@ -48,11 +50,14 @@ public class CreateDoctorCommandHandler : IRequestHandler<CreateDoctorCommand, R
             };
             _dbContext.Doctors.Add(newDoctor);
 
-            //TODO : Add file service here
-            //TODO : Build image name : doctor-{doctorId}.extension
-            //newDoctor = _fileService.SaveImage(request.FeatureImageByte, fileName);
-            //_dbContext.Doctors.Update(newDoctor);
-            //await _dbContext.SaveChangesAsync(cancellationToken);
+            if(request.FeatureImageByte != null && request.FeatureImageByte.Length > 0)
+            {
+                var fileName = $"{Guid.NewGuid()}.jpg";
+                newDoctor.FeatureImagePath = await _imageService.SaveImage(request.FeatureImageByte, fileName, 75);
+                _dbContext.Doctors.Update(newDoctor);
+            }
+            
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             transaction.Commit();
             result.Success = true;
