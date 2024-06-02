@@ -4,16 +4,19 @@ using EyeC.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EyeC.Infrastructure.Data.Migrations
+namespace EyeC.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240529135557_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +38,6 @@ namespace EyeC.Infrastructure.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("longtext");
-
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Education")
                         .IsRequired()
@@ -138,9 +138,6 @@ namespace EyeC.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("OfficeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -181,9 +178,6 @@ namespace EyeC.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("OfficeDetailItemId")
-                        .HasColumnType("int");
-
                     b.Property<int>("OfficeId")
                         .HasColumnType("int");
 
@@ -223,9 +217,6 @@ namespace EyeC.Infrastructure.Data.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<int>("OfficeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OfficeMediaId")
                         .HasColumnType("int");
 
                     b.Property<int>("Order")

@@ -22,11 +22,13 @@ public class ImageService : IImageService
         var imagePath = Path.Combine($"{path}", fileName);
         await File.WriteAllBytesAsync(imagePath, imageBytes);
 
-        if(compressionQuality > 0 && compressionQuality < 100)
+        if (compressionQuality > 0 && compressionQuality < 100)
         {
-            var image = await Image.LoadAsync(imagePath);
+            var fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.ReadWrite);
+            var image = await Image.LoadAsync(fileStream);
             var encoder = new JpegEncoder() { Quality = compressionQuality };
-            await image.SaveAsync(path, encoder);
+            //await image.SaveAsync(path, encoder);
+            await image.SaveAsync(fileStream, encoder);
         }
         //TODO: Build output path
 

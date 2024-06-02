@@ -7,7 +7,7 @@ using EyeC.Application.Common.Interfaces;
 using EyeC.Application.Common.Models;
 
 namespace EyeC.Application.Offices.Commands.AddDoctorToOffice;
-public record AddDoctorToOfficeCommand(int OfficeId, int DoctorId) : IRequest<ResultModel>
+public record AddDoctorToOfficeCommand(int DoctorId, int OfficeId) : IRequest<ResultModel>
 {
 }
 
@@ -27,7 +27,7 @@ public class AddDoctorToOfficeHandler : IRequestHandler<AddDoctorToOfficeCommand
         var result = new ResultModel();
         try
         {
-            var doctor = await _dbContext.Doctors.FirstOrDefaultAsync(i => i.DoctorId == request.DoctorId && !i.IsDeleted, cancellationToken);
+            var doctor = await _dbContext.Doctors.FirstOrDefaultAsync(i => i.Id == request.DoctorId && !i.IsDeleted, cancellationToken);
 
             if (doctor == null)
             {

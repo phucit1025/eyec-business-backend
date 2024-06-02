@@ -7,7 +7,7 @@ using EyeC.Application.Common.Interfaces;
 using EyeC.Application.Common.Models;
 
 namespace EyeC.Application.Offices.Commands.UpdateOffice;
-public record UpdateOffice : IRequest<ResultModel>
+public record UpdateOfficeCommand : IRequest<ResultModel>
 {
     public int OfficeId { get; init; }
     public string Name { get; init; } = string.Empty;
@@ -21,7 +21,7 @@ public record UpdateOffice : IRequest<ResultModel>
     public byte[] FeatureImageBytes { get; init; } = Array.Empty<byte>();
 }
 
-public class UpdateOfficeCommandHandler : IRequestHandler<UpdateOffice, ResultModel>
+public class UpdateOfficeCommandHandler : IRequestHandler<UpdateOfficeCommand, ResultModel>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -34,13 +34,13 @@ public class UpdateOfficeCommandHandler : IRequestHandler<UpdateOffice, ResultMo
         _imageService = imageService;
     }
 
-    public async Task<ResultModel> Handle(UpdateOffice request, CancellationToken cancellationToken)
+    public async Task<ResultModel> Handle(UpdateOfficeCommand request, CancellationToken cancellationToken)
     {
         var result = new ResultModel();
         var transaction = await _dbContext.BeginTransactionAsync();
         try
         {
-            var office = await _dbContext.Offices.FirstOrDefaultAsync(i => i.OfficeId == request.OfficeId && !i.IsDeleted, cancellationToken);
+            var office = await _dbContext.Offices.FirstOrDefaultAsync(i => i.Id == request.OfficeId && !i.IsDeleted, cancellationToken);
             if (office == null)
             {
                 result.Success = false;

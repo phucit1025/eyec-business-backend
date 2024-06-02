@@ -27,7 +27,7 @@ public class DeleteOfficeCommandHandler : IRequestHandler<DeleteOfficeCommand, R
         var result = new ResultModel();
         try
         {
-            var office = await _dbContext.Offices.FirstOrDefaultAsync(i => !i.IsDeleted && i.OfficeId == request.OfficeId, cancellationToken);
+            var office = await _dbContext.Offices.FirstOrDefaultAsync(i => !i.IsDeleted && i.Id == request.OfficeId, cancellationToken);
             if (office != null)
             {
                 office.IsDeleted = true;

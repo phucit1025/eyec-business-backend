@@ -17,7 +17,8 @@ public record CreateDoctorCommand : IRequest<ResultModel>
     public Gender Gender { get; init; }
     public string? PersonalExperience { get; init; }
     public string? Education { get; init; }
-    public byte[]? FeatureImageByte { get; init; }
+    public byte[]? FeatureImageByte { get; set; }
+    public string? Base64 { get; init; }
 }
 
 public class CreateDoctorCommandHandler : IRequestHandler<CreateDoctorCommand, ResultModel>
@@ -61,7 +62,7 @@ public class CreateDoctorCommandHandler : IRequestHandler<CreateDoctorCommand, R
 
             transaction.Commit();
             result.Success = true;
-            result.Data = newDoctor.DoctorId;
+            result.Data = newDoctor.Id;
         }
         catch (Exception ex)
         {

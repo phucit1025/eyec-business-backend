@@ -1,7 +1,7 @@
 ﻿using EyeC.Application.Common.Interfaces;
 
 namespace EyeC.Application.Offices.Queries.GetOfficeDoctors;
-public record GetOfficeDoctorsQuery(int OfficeId) : IRequest<IEnumerable<GetOfficeDoctorsViewModel>>
+public record GetOfficeDoctorsQuery(int Id) : IRequest<IEnumerable<GetOfficeDoctorsViewModel>>
 {
 }
 
@@ -18,8 +18,8 @@ public class GetOfficeDoctorsQueryHandler : IRequestHandler<GetOfficeDoctorsQuer
 
     public async Task<IEnumerable<GetOfficeDoctorsViewModel>> Handle(GetOfficeDoctorsQuery request, CancellationToken cancellationToken)
     {
-        if (request == null || request.OfficeId <= 0) return Enumerable.Empty<GetOfficeDoctorsViewModel>();
-        var doctors = await _dbContext.Doctors.Where(i => !i.IsDeleted && i.OfficeId == request.OfficeId)
+        if (request == null || request.Id <= 0) return Enumerable.Empty<GetOfficeDoctorsViewModel>();
+        var doctors = await _dbContext.Doctors.Where(i => !i.IsDeleted && i.Id == request.Id)
                                                 .ProjectTo<GetOfficeDoctorsViewModel>(_mapper.ConfigurationProvider)
                                                 .ToListAsync();
 

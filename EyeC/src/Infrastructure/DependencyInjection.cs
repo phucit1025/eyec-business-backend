@@ -19,7 +19,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("EyeC.Dev");
+        var connectionString = configuration.GetConnectionString("EyeC-Dev");
         var mySqlServerVersion = ServerVersion.AutoDetect(connectionString);
         var jwtSecret = configuration["Jwt:Secret"] ?? "";
         var jwtIssuer = configuration["Jwt:Issuer"] ?? "";

@@ -39,7 +39,7 @@ public class UpdateDoctorCommandHandler : IRequestHandler<UpdateDoctorCommand, R
 
         try
         {
-            var doctor = await _dbContext.Doctors.FirstOrDefaultAsync(i => i.DoctorId == request.DoctorId && !i.IsDeleted, cancellationToken);
+            var doctor = await _dbContext.Doctors.FirstOrDefaultAsync(i => i.Id == request.DoctorId && !i.IsDeleted, cancellationToken);
             if (doctor == null)
             {
                 result.Success = false;
